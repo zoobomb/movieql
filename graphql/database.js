@@ -1,4 +1,4 @@
-const movies = [
+let movies = [
   {
     id: 0,
     title: "Star Wars",
@@ -29,9 +29,9 @@ export const getById = (id) => {
 };
 
 export const deleteMovie = (id) => {
-  const cleanedMovie = movies.filter(movie.id !== id);
+  const cleanedMovie = movies.filter((movie) => movie.id !== id);
   if (movies.length > cleanedMovie.length) {
-    movie = cleanedMovie;
+    movies = cleanedMovie;
     return true;
   } else {
     return false;
