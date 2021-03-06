@@ -1,49 +1,11 @@
-let movies = [
-  {
-    id: 0,
-    title: "Star Wars",
-    score: 70,
-  },
-  {
-    id: 1,
-    title: "Avengers",
-    score: 88,
-  },
-  {
-    id: 2,
-    title: "Totoro",
-    score: 77,
-  },
-  {
-    id: 3,
-    title: "Pokemon",
-    score: 60,
-  },
-];
+import fetch from "node-fetch";
+require("dotenv").config();
 
-export const getMovies = () => movies;
+const api_key = process.env.API_KEY;
+const API_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}`;
 
-export const getById = (id) => {
-  const filteredMovie = movies.filter((movie) => movie.id === id);
-  return filteredMovie[0];
-};
-
-export const deleteMovie = (id) => {
-  const cleanedMovie = movies.filter((movie) => movie.id !== id);
-  if (movies.length > cleanedMovie.length) {
-    movies = cleanedMovie;
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const addMovie = (title, score) => {
-  const newMovie = {
-    id: movies.length,
-    title,
-    score,
-  };
-  movies.push(newMovie);
-  return newMovie;
+export const getMovies = () => {
+  return fetch(API_URL)
+    .then((res) => res.json())
+    .then((json) => json.results);
 };
